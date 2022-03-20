@@ -2,45 +2,20 @@
 
 using namespace std;
 
-void StraightInsert_sort(int a[],int n)
+void Shell_sort(int a[],int n)
 {
-    int temp,i,j;
-    for(i=1;i<n;i++)
+    int gap,i,j,temp;
+    for(gap=n/2;gap>=1;gap/=2)
     {
-        temp=a[i];
-        for(j=i-1;j>=0&&a[j]>temp;j--)
+        for(i=gap;i<n;i++)
         {
-            a[j+1]=a[j];
+            temp=a[i];
+            for(j=i-gap;j>=0&&temp<a[j];j-=gap)   //Ö±½Ó²åÈëÅÅÐò
+			{
+				a[j+gap] = a[j];
+			}
+			a[j+gap] = temp;
         }
-        a[j+1]=temp;
-    }
-}
-
-void BinaryInsert_sort(int *a,int n)
-{
-    int i,j,temp,left,right,middle;
-    for(i=1;i<n;i++)
-    {
-        temp=a[i];
-        left=0;
-        right=i-1;
-        while(left<=right)
-        {
-            middle=left+(right-left)/2;
-            if(a[middle]>temp)
-            {
-                right=middle-1;
-            }
-            else
-            {
-                left=middle+1;
-            }
-        }
-        for(j=i-1;j>=right+1;j--)
-        {
-            a[j+1]=a[j];
-        }
-        a[right+1]=temp;
     }
 }
 
@@ -61,9 +36,7 @@ int main()
     {
         cin>>a[i];
     }
-    StraightInsert_sort(a,10);
-    Print(a);
-    BinaryInsert_sort(a,10);
+    Shell_sort(a,10);
     Print(a);
     return 0;
 }
